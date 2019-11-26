@@ -12,6 +12,8 @@ public class EmployeeListActivity extends AppCompatActivity
 {
     private ListView employeeLV;
 
+    ArrayAdapter<String> adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -21,22 +23,21 @@ public class EmployeeListActivity extends AppCompatActivity
         //capable of showing a collection of things on the screen
         this.employeeLV = this.findViewById(R.id.employeeLV);
 
+        //for(int i = 0; i < 10; i++)
+        //{
+            //Core.theimportantString.add("ArrayList String " + i);
+        //}
 
-        //created a collection of 1000 unique strings
-        String[] theStrings = new String[1000];
-        for(int i = 0; i < theStrings.length; i++)
-        {
-            theStrings[i] = "String " + i;
-        }
 
-        ArrayList<String> theString2 = new ArrayList<String>();
-        for(int i = 0; i < 10000; i++)
-        {
-            theString2.add("ArrayList String " + i);
-        }
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Core.theimportantString);
+        this.employeeLV.setAdapter(adapter);
+    }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, theStrings);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, theString2);
-        this.employeeLV.setAdapter(adapter2);
+    @Override
+    protected void onResume() //if the activity is run up again and inserts in new information
+    {
+       super.onResume();
+       adapter.notifyDataSetChanged();
+        //employeeLV.invalidate();
     }
 }
